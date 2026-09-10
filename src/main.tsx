@@ -12,6 +12,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
     <Header />
+    
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/game" element={<GamePage />} />
