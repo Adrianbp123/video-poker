@@ -1,0 +1,85 @@
+.card {
+    width: 3.3rem;
+    height: 4.85rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    align-items: center;
+    justify-items: center;
+
+    background-color: var(--card-bg);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+
+    color: black;
+}
+
+.card.red {
+    color: red;
+}
+
+.card-value {
+    grid-column: 1;
+    grid-row: 1;
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.card-suit {
+    grid-column: 2;
+    grid-row: 2;
+
+    font-size: 1.5rem;
+}
+
+.game-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-hand {
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: 6rem;
+        height: 9rem;
+    }
+
+    .card-value {
+        font-size: 1.6rem;
+    }
+
+    .card-suit {
+        font-size: 2rem;
+    }
+
+    .card-hand {
+        gap: 1rem;
+    }
+}
+
+.card-back {
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--surface-color)
+    );
+
+    p {
+        grid-column: 2;
+        grid-row: 2;
+
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--text-color);
+        font-family: var(--display-font);
+    }
+}
