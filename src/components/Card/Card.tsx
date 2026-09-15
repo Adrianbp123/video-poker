@@ -18,10 +18,9 @@ type CardProps = {
     faceDown: boolean;
 }
 
-/* Mottar informasjon om et kort og viser spillkort med riktig verdi, symbol og farge.
-Viser også riktig iforhold til om det er forsiden eller baksiden av kortet. */ 
+/* Mottar informasjon om et kort og viser spillkort med riktig verdi, symbol og farge. */ 
 export default function Card({ card, faceDown }: CardProps) {
-
+/* Viser kortbaksiden hvis faceDown er true */
     if (faceDown) {
         return (
             <div className="card card-back">
