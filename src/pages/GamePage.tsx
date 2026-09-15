@@ -19,7 +19,7 @@ export default function GamePage() {
             <section className="card-hand">
         {/* Går igjennom testCards og lager en Card-komponent for hvert kort */}                     
             {testCards.map((card, index) => (
-                <Card key={index} card={card} />
+                <Card key={index} card={card} faceDown={false} />
             ))}
             </section>
         </main>

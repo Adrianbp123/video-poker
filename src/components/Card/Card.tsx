@@ -12,13 +12,24 @@ export type PlayingCard = {
     suit: "hearts" | "diamonds" | "clubs" | "spades";
     value: "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "J" | "Q" | "K" | "A";
 }
-/* Bestemmer at card-komponenten skal motta et PlayingCard */
+/* Bestemmer hvilke props Card-komponenten skal motta */
 type CardProps = {
     card: PlayingCard;
+    faceDown: boolean;
 }
 
-/* Mottar informasjon om et kort og viser spillkort med riktig verdi, symbol og farge */ 
-export default function Card({ card }: CardProps) {
+/* Mottar informasjon om et kort og viser spillkort med riktig verdi, symbol og farge.
+Viser også riktig iforhold til om det er forsiden eller baksiden av kortet. */ 
+export default function Card({ card, faceDown }: CardProps) {
+
+    if (faceDown) {
+        return (
+            <div className="card card-back">
+                <p>VP</p>
+            </div>
+        )
+    }
+
 /* Sjekker om kortet skal være rødt / Gjør om hearts og diamonds til rød */
     const isRed = card.suit === "hearts" || card.suit === "diamonds";
 
