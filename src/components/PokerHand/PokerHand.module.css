@@ -1,0 +1,12 @@
+.pokerHand {
+    text-align: center;
+}
+
+.title {
+    color: var(--muted-text);
+}
+
+.hand {
+    font-size: var(--h3);
+    font-weight: bold;
+}
