@@ -1,19 +1,13 @@
-import Card, { type PlayingCard } from "../components/Card/Card";
+import Card from "../components/Card/Card";
+import { useGameStore } from "../store/useGameStore";
 import PokerHand from "../components/PokerHand/PokerHand";
 import getPokerHand from "../components/PokerHand/getPokerHand";
 
 
 export default function GamePage() {
-/* Midlertidige kort som brukes for å teste Card-komponenten */
-    const testCards: PlayingCard[] = [
-        { suit: "hearts", value: "10" },
-        { suit: "hearts", value: "J" },
-        { suit: "hearts", value: "Q" },
-        { suit: "hearts", value: "K" },
-        { suit: "hearts", value: "A" },
-    ]
 
-    const currentHand = getPokerHand(testCards);
+    const hand = useGameStore((state) => state.hand);
+    const deal = useGameStore((state) => state.deal);
     
 
 
@@ -21,13 +15,19 @@ export default function GamePage() {
         <main className="game-page">
             <h1>Video Poker</h1>
             <section className="card-hand">
-        {/* Går igjennom testCards og lager en Card-komponent for hvert kort */}                     
-            {testCards.map((card, index) => (
+        {/* Går igjennom hand og lager en Card-komponent for hvert kort */}                     
+            {hand.map((card, index) => (
                 <Card key={index} card={card} faceDown={false} />
             ))}
             </section>
 
-            <PokerHand hand={currentHand}/>
+        {/* Sjekker og viser pokerhånden når 5 kort er delt ut */} 
+            {hand.length === 5 && (
+                <PokerHand hand={getPokerHand(hand)} />
+            )}
+
+            <button onClick={deal}>Deal</button>
+
         </main>
     );
 }
