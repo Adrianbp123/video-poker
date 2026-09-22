@@ -2,9 +2,13 @@ import { useGameStore } from "../store/useGameStore";
 
 export default function PlayersPage() {
 
-/* Henter createPlayer og currentPlayer fra game store */
+/* Henter spiller-state og funksjoner fra game store */
 const createPlayer = useGameStore((state) => state.createPlayer);
 const currentPlayer = useGameStore((state) => state.currentPlayer);
+
+const players = useGameStore((state) => state.players);
+const selectPlayer = useGameStore((state) => state.selectPlayer);
+const deletePlayer = useGameStore((state) => state.deletePlayer);
 
 
 /* Henter navnet fra skjemaet og oppretter en spiller hvis navnet er gyldig */
@@ -38,6 +42,27 @@ function registerPlayer(formData: FormData) {
                     Spiller: {currentPlayer.name} | Coins: {currentPlayer.coins}
                 </p>
             )}
+
+        {/* Viser alle lagrede spillere og lar brukeren velge aktiv spiller */}
+            <section>
+                <h2>Lagrede spillere</h2>
+
+                {players.map((player) => (
+                    <div key={player.id}>
+                        <p>
+                            {player.name} - {player.coins} coins
+                        </p>
+
+                        <button onClick={() => selectPlayer(player.id)}>
+                         Velg
+                        </button>
+
+                        <button onClick={() => deletePlayer(player.id)}>
+                            Slett
+                        </button>
+                    </div>
+                ))}
+            </section>
 
 
 
