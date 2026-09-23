@@ -8,6 +8,10 @@ export default function GamePage() {
 
     const hand = useGameStore((state) => state.hand);
     const deal = useGameStore((state) => state.deal);
+    const draw = useGameStore((state) => state.draw);
+
+    const heldCards = useGameStore((state) => state.heldCards);
+    const toggleHold = useGameStore((state) => state.toggleHold);
     
 
 
@@ -17,7 +21,12 @@ export default function GamePage() {
             <section className="card-hand">
         {/* Går igjennom hand og lager en Card-komponent for hvert kort */}                     
             {hand.map((card, index) => (
-                <Card key={index} card={card} faceDown={false} />
+                <button key={index} onClick={() => toggleHold(index)}>
+                <Card card={card} faceDown={false} />
+                {heldCards.includes(index) && (
+                    <span>HOLD</span>
+                )}
+                </button>
             ))}
             </section>
 
@@ -27,6 +36,7 @@ export default function GamePage() {
             )}
 
             <button onClick={deal}>Deal</button>
+            <button onClick={draw}>Draw</button>
 
         </main>
     );
