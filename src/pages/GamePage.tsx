@@ -3,6 +3,8 @@ import { useGameStore } from "../store/useGameStore";
 import PokerHand from "../components/PokerHand/PokerHand";
 import getPokerHand from "../components/PokerHand/getPokerHand";
 import CurrentBet from "../components/CurrentBet/CurrentBet";
+import TotalCoins from "../components/TotalCoins/TotalCoins";
+import { Link } from "react-router";
 
 
 export default function GamePage() {
@@ -13,12 +15,19 @@ export default function GamePage() {
     const heldCards = useGameStore((state) => state.heldCards);
     const toggleHold = useGameStore((state) => state.toggleHold);
     const gamePhase = useGameStore((state) => state.gamePhase);
+    const currentPlayer = useGameStore((state) => state.currentPlayer);
     
 
 
     return (
         <main className="game-page">
             <h1>Video Poker</h1>
+            {!currentPlayer && (
+                <p>
+                    Du må velge eller opprette en spiller for å starte. <Link to="/players">Opprett spiller</Link>
+                </p>
+            )}
+            <TotalCoins />
             <CurrentBet />
             <section className="card-hand">
         {/* Går igjennom hand og lager en Card-komponent for hvert kort */}                     
@@ -43,7 +52,7 @@ export default function GamePage() {
             {gamePhase === "holding" ? (
                 <button onClick={draw}>Draw</button>
             ) : (
-                <button onClick={deal}>Deal</button>
+                <button onClick={deal} disabled={!currentPlayer}>Deal</button>
             )}
 
             

@@ -61,6 +61,12 @@ export const useGameStore = create<GameStore>()(
           return {
             players: [...state.players, newPlayer],
             currentPlayer: newPlayer,
+            gamePhase: "betting",
+            currentBet: 1,
+            hand: [],
+            deck: [],
+            heldCards: [],
+            discardedCards: [],
           };
         });
       },
@@ -70,6 +76,12 @@ export const useGameStore = create<GameStore>()(
         set((state) => ({
           currentPlayer:
             state.players.find((player) => player.id === id) || null,
+            gamePhase: "betting",
+            currentBet: 1,
+            hand: [],
+            deck: [],
+            heldCards: [],
+            discardedCards: [],
         }));
       },
 
@@ -105,6 +117,11 @@ export const useGameStore = create<GameStore>()(
             if (!state.currentPlayer) {
                 return state;
             }
+
+            if (state.currentPlayer.coins < state.currentBet) {
+                return state;
+            }
+
 /* Trekker coins fra spilleren ut fra hvor stort bettet er  */
             const updatedPlayer = {
                 ...state.currentPlayer,
@@ -167,7 +184,11 @@ export const useGameStore = create<GameStore>()(
       /* Øker current bet med 1, maks 5 */
 increaseBet: () => {
         set((state) => {
-            if (state.currentBet < 5) {
+            if (
+                state.currentPlayer &&
+                state.currentBet < 5 &&
+                state.currentBet < state.currentPlayer.coins
+            ) {
                 return {
                     currentBet: state.currentBet + 1
                 };
