@@ -13,6 +13,13 @@ type GameStore = {
   discardedCards: PlayingCard[];
   players: Player[];
   currentPlayer: Player | null;
+  currentBet: number;
+  gamePhase: "betting" | "holding" | "result";
+
+  increaseBet: () => void;
+  decreaseBet: () => void;
+
+
   deal: () => void;
   draw: () => void;
   toggleHold: (index: number) => void;
@@ -32,6 +39,8 @@ export const useGameStore = create<GameStore>()(
       discardedCards: [],
       players: [],
       currentPlayer: null,
+      gamePhase:  "betting",
+      currentBet: 1,
       /* Oppretter ny spiller med id og 100 coins, lagrer spilleren og setter den som aktiv */
       createPlayer: (name) => {
         set((state) => {
@@ -91,11 +100,33 @@ export const useGameStore = create<GameStore>()(
         const hand = shuffledDeck.slice(0, 5);
         const remainingDeck = shuffledDeck.slice(5);
 
-        set({
+        set((state) => {
+
+            if (!state.currentPlayer) {
+                return state;
+            }
+/* Trekker coins fra spilleren ut fra hvor stort bettet er  */
+            const updatedPlayer = {
+                ...state.currentPlayer,
+                coins: state.currentPlayer.coins - state.currentBet
+            }
+
+
+            return {
           deck: remainingDeck,
           hand: hand,
           discardedCards: [],
           heldCards: [],
+          gamePhase: "holding",
+          currentPlayer: updatedPlayer,
+
+          players: state.players.map((player) => {
+            if (player.id === updatedPlayer.id) {
+                return updatedPlayer;
+            }
+            return player;
+          })
+            };
         });
       },
 
@@ -127,11 +158,47 @@ export const useGameStore = create<GameStore>()(
             hand: newHand,
             deck: remainingDeck,
             heldCards: [],
-            discardedCards: discardedCards
+            discardedCards: discardedCards,
+            gamePhase: "result"
           };
         });
+
       },
+      /* Øker current bet med 1, maks 5 */
+increaseBet: () => {
+        set((state) => {
+            if (state.currentBet < 5) {
+                return {
+                    currentBet: state.currentBet + 1
+                };
+            }
+
+            return {
+                currentBet: state.currentBet
+            };
+        });
+    },
+/* Reduserer current bet med 1, minimum 1 */
+    decreaseBet: () => {
+        set((state) => {
+            if (state.currentBet > 1) {
+                return {
+                    currentBet: state.currentBet - 1
+                };
+            }
+
+            return {
+                currentBet: state.currentBet
+            };
+        })
+    }
+
+    
+
     }),
+
+    
+
     { name: "video-poker-game" },
   ),
 );
