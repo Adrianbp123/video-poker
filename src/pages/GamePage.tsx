@@ -16,6 +16,8 @@ export default function GamePage() {
     const toggleHold = useGameStore((state) => state.toggleHold);
     const gamePhase = useGameStore((state) => state.gamePhase);
     const currentPlayer = useGameStore((state) => state.currentPlayer);
+    const winnings = useGameStore((state) => state.winnings);
+    const newRound = useGameStore((state) => state.newRound);
     
 
 
@@ -48,11 +50,31 @@ export default function GamePage() {
             {hand.length === 5 && (
                 <PokerHand hand={getPokerHand(hand)} />
             )}
+
+        {/* Viser gevinst etter at runden er ferdig */}
+            {gamePhase === "result" && (
+                <p>Du vant {winnings} coins!</p>
+            )}
+
+
         {/* Viser riktig knapp basert på hvilken fase spillrunden er i */} 
-            {gamePhase === "holding" ? (
-                <button onClick={draw}>Draw</button>
-            ) : (
-                <button onClick={deal} disabled={!currentPlayer}>Deal</button>
+
+        {gamePhase === "betting" && (
+            <button onClick={deal} disabled={!currentPlayer}>
+                Deal
+                </button>
+        )}
+
+            {gamePhase === "holding" && (
+                <button onClick={draw}>
+                    Draw
+                    </button>
+            )}
+
+            {gamePhase === "result" && (
+                <button onClick={newRound}>
+                    Ny runde
+                    </button>
             )}
 
             

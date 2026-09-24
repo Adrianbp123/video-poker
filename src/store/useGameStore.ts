@@ -4,6 +4,8 @@ import type { PlayingCard } from "../components/Card/Card";
 import createDeck from "../game/createDeck";
 import shuffleDeck from "../game/shuffleDeck";
 import type { Player } from "../types/Player";
+import { calculatePayout } from "../game/payouts";
+import getPokerHand from "../components/PokerHand/getPokerHand";
 
 /* Bestemmer hvilken state og hvilke funksjoner game store skal inneholde */
 type GameStore = {
@@ -15,6 +17,7 @@ type GameStore = {
   currentPlayer: Player | null;
   currentBet: number;
   gamePhase: "betting" | "holding" | "result";
+  winnings: number;
 
   increaseBet: () => void;
   decreaseBet: () => void;
@@ -22,6 +25,7 @@ type GameStore = {
 
   deal: () => void;
   draw: () => void;
+  newRound: () => void;
   toggleHold: (index: number) => void;
   createPlayer: (name: string) => void;
   selectPlayer: (id: number) => void;
@@ -40,6 +44,7 @@ export const useGameStore = create<GameStore>()(
       players: [],
       currentPlayer: null,
       gamePhase:  "betting",
+      winnings: 0,
       currentBet: 1,
       /* Oppretter ny spiller med id og 100 coins, lagrer spilleren og setter den som aktiv */
       createPlayer: (name) => {
@@ -63,6 +68,7 @@ export const useGameStore = create<GameStore>()(
             currentPlayer: newPlayer,
             gamePhase: "betting",
             currentBet: 1,
+            winnings: 0,
             hand: [],
             deck: [],
             heldCards: [],
@@ -78,6 +84,7 @@ export const useGameStore = create<GameStore>()(
             state.players.find((player) => player.id === id) || null,
             gamePhase: "betting",
             currentBet: 1,
+            winnings: 0,
             hand: [],
             deck: [],
             heldCards: [],
@@ -135,6 +142,7 @@ export const useGameStore = create<GameStore>()(
           discardedCards: [],
           heldCards: [],
           gamePhase: "holding",
+          winnings: 0,
           currentPlayer: updatedPlayer,
 
           players: state.players.map((player) => {
@@ -150,6 +158,9 @@ export const useGameStore = create<GameStore>()(
       /* Bytter ut kort som ikke er valgt med nye kort fra kortstokken */
       draw: () => {
         set((state) => {
+            if (!state.currentPlayer) {
+                return state;
+            }
           /* Holder styr på hvilket kort som skal hentes fra kortstokken */
           let deckIndex = 0;
 
@@ -168,6 +179,15 @@ export const useGameStore = create<GameStore>()(
             deckIndex++;
             return newCard;
           });
+
+          const pokerHand = getPokerHand(newHand);
+          const winnings = calculatePayout(pokerHand, state.currentBet);
+          /* Lager en oppdatert spiller og legger på gevinsten på spillerens coins */
+          const updatedPlayer = {
+            ...state.currentPlayer,
+            coins: state.currentPlayer.coins + winnings
+          };
+
           /* Fjerner kortene som ble brukt fra kortstokken */
           const remainingDeck = state.deck.slice(deckIndex);
 
@@ -176,11 +196,30 @@ export const useGameStore = create<GameStore>()(
             deck: remainingDeck,
             heldCards: [],
             discardedCards: discardedCards,
-            gamePhase: "result"
+            gamePhase: "result",
+            currentPlayer: updatedPlayer,
+            winnings: winnings,
+
+            players: state.players.map((player) => {
+                if (player.id === updatedPlayer.id) {
+                    return updatedPlayer;
+                }
+                return player;
+            })
           };
         });
 
       },
+
+    /* Setter spillfasen tilbake til betting før neste runde */
+      newRound: () => {
+        set({
+            gamePhase: "betting"
+        });
+      },
+
+
+
       /* Øker current bet med 1, maks 5 */
 increaseBet: () => {
         set((state) => {
