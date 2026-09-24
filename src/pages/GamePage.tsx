@@ -2,22 +2,45 @@ import Card from "../components/Card/Card";
 import { useGameStore } from "../store/useGameStore";
 import PokerHand from "../components/PokerHand/PokerHand";
 import getPokerHand from "../components/PokerHand/getPokerHand";
+import CurrentBet from "../components/CurrentBet/CurrentBet";
+import TotalCoins from "../components/TotalCoins/TotalCoins";
+import { Link } from "react-router";
 
 
 export default function GamePage() {
 
     const hand = useGameStore((state) => state.hand);
     const deal = useGameStore((state) => state.deal);
+    const draw = useGameStore((state) => state.draw);
+    const heldCards = useGameStore((state) => state.heldCards);
+    const toggleHold = useGameStore((state) => state.toggleHold);
+    const gamePhase = useGameStore((state) => state.gamePhase);
+    const currentPlayer = useGameStore((state) => state.currentPlayer);
     
 
 
     return (
         <main className="game-page">
             <h1>Video Poker</h1>
+            {!currentPlayer && (
+                <p>
+                    Du må velge eller opprette en spiller for å starte. <Link to="/players">Opprett spiller</Link>
+                </p>
+            )}
+            <TotalCoins />
+            <CurrentBet />
             <section className="card-hand">
         {/* Går igjennom hand og lager en Card-komponent for hvert kort */}                     
             {hand.map((card, index) => (
-                <Card key={index} card={card} faceDown={false} />
+                <button key={index}
+                onClick={() => toggleHold(index)}
+                disabled={gamePhase !== "holding"
+                }>
+                <Card card={card} faceDown={false} />
+                {heldCards.includes(index) && (
+                    <span>HOLD</span>
+                )}
+                </button>
             ))}
             </section>
 
@@ -25,8 +48,15 @@ export default function GamePage() {
             {hand.length === 5 && (
                 <PokerHand hand={getPokerHand(hand)} />
             )}
+        {/* Viser riktig knapp basert på hvilken fase spillrunden er i */} 
+            {gamePhase === "holding" ? (
+                <button onClick={draw}>Draw</button>
+            ) : (
+                <button onClick={deal} disabled={!currentPlayer}>Deal</button>
+            )}
 
-            <button onClick={deal}>Deal</button>
+            
+           
 
         </main>
     );
