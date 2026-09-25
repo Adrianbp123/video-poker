@@ -1,4 +1,5 @@
 import Card from "../Card/Card";
+import CardBack from "../CardBack/CardBack";
 import { useGameStore } from "../../store/useGameStore";
 import PokerHand from "../PokerHand/PokerHand";
 import getPokerHand from "../PokerHand/getPokerHand";
@@ -30,18 +31,33 @@ export default function Game() {
       )}
       <TotalCoins />
       <CurrentBet />
+
       <section className="card-hand">
-        {/* Går igjennom hand og lager en Card-komponent for hvert kort */}
-        {hand.map((card, index) => (
+
+
+{/* Viser kortbaksider før kortene er delt ut */}
+        {gamePhase === "betting" ? (
+            <>
+            <CardBack />
+            <CardBack />
+            <CardBack />
+            <CardBack />
+            <CardBack />
+            </>
+        ) : (
+        /* Går igjennom hand og lager en Card-komponent for hvert kort */
+        hand.map((card, index) => (
           <button
             key={index}
             onClick={() => toggleHold(index)}
             disabled={gamePhase !== "holding"}
           >
-            <Card card={card} faceDown={false} />
+            <Card card={card}/>
             {heldCards.includes(index) && <span>HOLD</span>}
           </button>
-        ))}
+        ))
+        )}
+
       </section>
 
       {/* Sjekker og viser pokerhånden når 5 kort er delt ut */}

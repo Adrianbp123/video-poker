@@ -15,21 +15,12 @@ export type PlayingCard = {
 /* Bestemmer hvilke props Card-komponenten skal motta */
 type CardProps = {
     card: PlayingCard;
-    faceDown: boolean;
 }
 
 /* Mottar informasjon om et kort og viser spillkort med riktig verdi, symbol og farge. */ 
-export default function Card({ card, faceDown }: CardProps) {
-/* Viser kortbaksiden hvis faceDown er true */
-    if (faceDown) {
-        return (
-            <div className="card card-back">
-                <p>VP</p>
-            </div>
-        )
-    }
+export default function Card({ card }: CardProps) {
 
-/* Sjekker om kortet skal være rødt / Gjør om hearts og diamonds til rød */
+/* Sjekker om kortet skal være rødt */
     const isRed = card.suit === "hearts" || card.suit === "diamonds";
 
 /* Viser kortet og gir det riktig farge basert på isRed */
