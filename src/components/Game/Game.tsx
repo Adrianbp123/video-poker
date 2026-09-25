@@ -20,15 +20,21 @@ export default function Game() {
   const winnings = useGameStore((state) => state.winnings);
   const newRound = useGameStore((state) => state.newRound);
 
+/* Viser bare spillet hvis en spiller ikke er opprettet/valgt */
+if (!currentPlayer) {
+    return (
+        <>
+        <h1>Video Poker</h1>
+        <p>
+            Du må velge eller opprette en spiller for å starte. <Link to="/players">Opprett spiller</Link>
+        </p>
+        </>
+    )
+}
   return (
     <>
-      <h1>Video Poker</h1>
-      {!currentPlayer && (
-        <p>
-          Du må velge eller opprette en spiller for å starte.{" "}
-          <Link to="/players">Opprett spiller</Link>
-        </p>
-      )}
+    <h1>Video Poker</h1>
+
       <TotalCoins />
       <CurrentBet />
 
@@ -69,7 +75,7 @@ export default function Game() {
       {/* Viser riktig knapp basert på hvilken fase spillrunden er i */}
 
       {gamePhase === "betting" && (
-        <button onClick={deal} disabled={!currentPlayer}>
+        <button onClick={deal}>
           Deal
         </button>
       )}
