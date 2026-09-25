@@ -214,7 +214,12 @@ export const useGameStore = create<GameStore>()(
     /* Setter spillfasen tilbake til betting før neste runde */
       newRound: () => {
         set({
-            gamePhase: "betting"
+            gamePhase: "betting",
+            hand: [],
+            deck: [],
+            heldCards: [],
+            discardedCards: [],
+            winnings: 0,
         });
       },
 
