@@ -6,9 +6,9 @@ export default function Header() {
     return (
         <header className="Header">
             <nav>
-                <NavLink to="/game">Spill</NavLink>
-                <NavLink to="/rules">Regler</NavLink>
-                <NavLink to="/players">Spillere</NavLink>
+                <NavLink className="nav-button" to="/game">Spill</NavLink>
+                <NavLink className="nav-button" to="/rules">Regler</NavLink>
+                <NavLink className="nav-button" to="/players">Spillere</NavLink>
             </nav>
         </header>
     )
