@@ -1,0 +1,26 @@
+.start-page {
+    min-height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2rem;
+
+
+    h1 {
+        font-size: 2.5rem;
+        color: var(--accent-color);
+        font-weight: 800;
+        text-shadow: 0 0 20px rgba(245, 197, 66, 0.451);
+    }
+}
+
+
+
+.start-page .nav-button {
+    font-size: 2rem;
+    padding: 0.8rem 2rem;
+    border-color: var(--accent-color);
+}

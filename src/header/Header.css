@@ -1,52 +1,51 @@
 .Header {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--surface-color);
+
+  nav {
     display: flex;
-    justify-content: center;
-    padding: 1rem;
-    background-color: var(--surface-color);
+    gap: 1rem;
+    font-family: var(--display-font);
+  }
+}
 
-    nav {
-        display: flex;
-        gap: 1rem;
-        font-family: var(--display-font);
-        
+/* BUTTON */
 
-        a {
-            min-width: 5rem;
-            text-decoration: none;
-            text-align: center;
+.nav-button {
+  min-width: 5rem;
+  text-decoration: none;
+  text-align: center;
 
-            color: var(--text-color);
-            font-size: var(--main-text);
-            border: 1px solid var(--secondary-color);
+  color: var(--text-color);
+  font-size: var(--main-text);
+  border: 1px solid var(--secondary-color);
 
-            border-radius: .5rem;
-            padding: .4rem;
-            transition: .2s;
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+  transition: 0.2s;
 
+  &:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+  }
 
-            &:hover {
-                color: var(--accent-color);
-                border-color: var(--accent-color);
-                transform: translateY(-1px);
-            }
-
-            &.active {
-                color: var(--accent-color);
-                border-color: var(--accent-color);
-                box-shadow: 0 4px 10px rgba(245, 197, 66, 0.441)
-            }
-        /* Markering ved tastaturnavigasjon */
-            &:focus-visible {
-                outline: 2px solid var(--accent-color);
-                outline-offset: 3px;
-            }
-        }
-    }
+  &.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 10px rgba(245, 197, 66, 0.441);
+  }
+  /* Markering ved tastaturnavigasjon */
+  &:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+  }
 }
 
 @media (min-width: 768px) {
-
-    .Header nav {
-        gap: 2rem;
-    }
+  .Header nav {
+    gap: 2rem;
+  }
 }
