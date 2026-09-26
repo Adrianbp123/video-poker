@@ -1,4 +1,5 @@
 import { useGameStore } from "../../store/useGameStore";
+import "./CurrentBet.css";
 
 export default function CurrentBet() {
 
@@ -9,18 +10,29 @@ export default function CurrentBet() {
     const currentPlayer = useGameStore((state) => state.currentPlayer);
 
     return (
-        <div>
-            <p>Innsats: {currentBet}</p>
-            <button onClick={decreaseBet}
+        <div className="current-bet">
+            <p>Innsats:</p>
+        
+        <div className="bet-controls">
+            <button
+                    className="bet-button"
+                    onClick={decreaseBet}
                     disabled={gamePhase !== "betting" || !currentPlayer}>
                 -
                 </button>
 
-            <button onClick={increaseBet}
+            <p className="bet-amount">{currentBet}</p>
+
+            <button
+                    className="bet-button"
+                    onClick={increaseBet}
                     disabled={gamePhase !== "betting" || !currentPlayer}
             >
                 +
                 </button>
+        </div>
+
+                
         </div>
     )
 

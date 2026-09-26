@@ -35,22 +35,30 @@
     font-size: 1.5rem;
 }
 
-.game-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 .card-hand {
     display: flex;
     gap: .5rem;
     justify-content: center;
+
+    margin-top: 1rem;
 }
+
+
+@media (min-width: 375px) {
+    .card {
+        width: 3.8rem;
+        height: 5.5rem;
+        
+    }
+}
+
 
 @media (min-width: 768px) {
     .card {
-        width: 6rem;
-        height: 9rem;
+        width: 7rem;
+        height: 10rem;
     }
 
     .card-value {
