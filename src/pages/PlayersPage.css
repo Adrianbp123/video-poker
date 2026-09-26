@@ -1,0 +1,145 @@
+.players-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.player-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 14rem;
+
+
+    label {
+        font-weight: 600;
+    }
+}
+
+.player-input {
+    padding: 0.7rem;
+    border: 1px solid var(--secondary-color);
+
+    background-color: var(--surface-color);
+    color: var(--text-color);
+
+    margin-bottom: 0.7rem;
+    
+}
+
+
+.create-player-button {
+    padding: 0.5rem;
+
+    border: 1px solid var(--accent-color);
+    border-radius: 0.5rem;
+
+    background-color: var(--accent-color);
+    font-weight: 700;
+
+    transition: 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(1px) scale(0.98);
+    }
+}
+
+
+.saved-players {
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    width: 14rem;
+
+    margin-bottom: 2rem;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+
+    margin-top: 1rem;
+    padding: 1rem;
+
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.5rem;
+}
+
+
+.player-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.select-button,
+.delete-button {
+    flex: 1;
+    padding: 0.5rem 2rem;
+    
+
+    border-radius: 0.5rem;
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.select-button {
+    border: none;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.delete-button {
+    border: 1px solid var(--secondary-color);
+    background-color: transparent;
+    color: var(--text-color);
+
+    &:hover {
+        color: var(--delete-hover);
+        border-color: var(--delete-hover);
+    }
+}
+
+
+@media (min-width: 768px) {
+    .players-page {
+        margin-top: 2.5rem;
+        gap: 2.5rem;
+    }
+
+    .player-form,
+    .saved-players {
+        width: 20rem;
+    }
+
+    .player-input {
+        padding: 1rem;
+    }
+
+    .player-card {
+        width: 100%;
+        padding: 1.2rem;
+    }
+
+    .select-button,
+    .delete-button
+     {
+        padding: 1rem 2.8rem;
+    }
+
+}

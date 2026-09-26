@@ -1,4 +1,5 @@
 import { useGameStore } from "../store/useGameStore";
+import "./PlayersPage.css"
 
 export default function PlayersPage() {
 
@@ -23,43 +24,46 @@ function registerPlayer(formData: FormData) {
 
 
     return (
-        <main>
+        <main className="players-page">
             <h1>Spillere</h1>
 
-            <form action={registerPlayer}>
-                <label htmlFor="player-name">Navn</label>
+            <form className="player-form" action={registerPlayer}>
+                <label htmlFor="player-name">Spillernavn</label>
 
-                <input type="text"
-                       id="player-name"
-                       name="name"
+                <input 
+                    className="player-input"
+                    type="text"
+                    id="player-name"
+                    name="name"
                 />
 
-                <button type="submit">Opprett spiller</button>
+                <button className="create-player-button" type="submit">Opprett spiller</button>
             </form>
 
             {currentPlayer && (
                 <p>
-                    Spiller: {currentPlayer.name} | Coins: {currentPlayer.coins}
+                    Spiller: {currentPlayer.name} | Coins: <span className="winnings">{currentPlayer.coins}</span>
                 </p>
             )}
 
         {/* Viser alle lagrede spillere og lar brukeren velge aktiv spiller */}
-            <section>
+            <section className="saved-players">
                 <h2>Lagrede spillere</h2>
 
                 {players.map((player) => (
-                    <div key={player.id}>
+                    <div className="player-card" key={player.id}>
                         <p>
-                            {player.name} - {player.coins} coins
+                            {player.name} - <span className="winnings">{player.coins}</span> coins
                         </p>
-
-                        <button onClick={() => selectPlayer(player.id)}>
+                    <div className="player-actions">
+                        <button className="select-button" onClick={() => selectPlayer(player.id)}>
                          Velg
                         </button>
 
-                        <button onClick={() => deletePlayer(player.id)}>
+                        <button className="delete-button" onClick={() => deletePlayer(player.id)}>
                             Slett
                         </button>
+                        </div>
                     </div>
                 ))}
             </section>
