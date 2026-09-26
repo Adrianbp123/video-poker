@@ -13,7 +13,7 @@
   /* KORT */
   --card-bg: #ffffff;
   --card-border: 2px solid #d9d9d9;
-  --card-radius: 1rem;
+  --card-radius: 0.8rem;
 
   /* FONT */
   --text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -47,6 +47,14 @@ body {
   color: var(--text-color);
   font-family: var(--text-font);
   line-height: 1.5;
+}
+
+/* Markering ved tastaturnavigasjon */
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
 }
 
 /* SKRIFTSTØRRELSER*/
