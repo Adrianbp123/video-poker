@@ -1,25 +1,24 @@
 .payout-table {
-    border-collapse: collapse;
-    width: 28rem;
-    align-self: center;
-    margin-bottom: 2rem;
+  border-collapse: collapse;
+  width: 28rem;
+  max-width: 100%;
+  align-self: center;
+  margin-bottom: 2rem;
 }
-
 
 .payout-table th,
 .payout-table td {
-    padding: 0.7rem;
-    text-align: center;
-    border-bottom: 1px solid var(--secondary-color);
+  padding: 0.7rem;
+  text-align: center;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 .payout-table th {
-    color: var(--accent-color);
+  color: var(--primary-color);
 }
 
-
 @media (min-width: 768px) {
-    .payout-table {
-        width: 38rem;
-    }
+  .payout-table {
+    width: 38rem;
+  }
 }
