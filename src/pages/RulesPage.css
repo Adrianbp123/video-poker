@@ -1,0 +1,62 @@
+.rules-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    gap: 2rem;
+
+    margin-top: 1.5rem;
+}
+
+
+.rules-section {
+    width: 19rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h2 {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.rule-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.rule-step {
+    
+
+    border-left: 2px solid var(--accent-color);
+    padding-left: 0.8rem;
+
+    h3 {
+        color: var(--accent-color);
+    }
+
+    p {
+        color: var(--muted-text);
+    }
+}
+
+
+
+@media (min-width: 768px) {
+
+    .rules-section {
+        width: 40rem;
+    }
+
+    .rule-steps {
+        gap: 3rem;
+    }
+}
+
+
+

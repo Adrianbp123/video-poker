@@ -1,11 +1,12 @@
 import { payouts } from "../../game/payouts";
+import "./PayoutTable.css"
 
 
 /* Viser en tabell med pokerhender og hvor mye hver hånd betaler */
 export default function PayoutTable() {
 
     return (
-        <table>
+        <table className="payout-table">
             <thead>
                 <tr>
                     <th>Pokerhånd</th>
