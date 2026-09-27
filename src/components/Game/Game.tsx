@@ -63,6 +63,8 @@ if (!currentPlayer) {
             key={index}
             onClick={() => toggleHold(index)}
             disabled={gamePhase !== "holding"}
+            aria-pressed={heldCards.includes(index)}
+            aria-label={`${card.value} ${card.suit}`}
           >
             <Card card={card}/>
             <span className={`hold-label ${heldCards.includes(index) ? "show" : ""}`}>

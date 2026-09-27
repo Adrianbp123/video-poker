@@ -35,6 +35,7 @@ function registerPlayer(formData: FormData) {
                     type="text"
                     id="player-name"
                     name="name"
+                    required
                 />
 
                 <button className="create-player-button" type="submit">Opprett spiller</button>
@@ -56,11 +57,11 @@ function registerPlayer(formData: FormData) {
                             {player.name} - <span className="winnings">{player.coins}</span> coins
                         </p>
                     <div className="player-actions">
-                        <button className="select-button" onClick={() => selectPlayer(player.id)}>
+                        <button className="select-button" onClick={() => selectPlayer(player.id)} aria-label={`Velg spiller ${player.name}`}>
                          Velg
                         </button>
 
-                        <button className="delete-button" onClick={() => deletePlayer(player.id)}>
+                        <button className="delete-button" onClick={() => deletePlayer(player.id)} aria-label={`Slett spiller ${player.name}`}>
                             Slett
                         </button>
                         </div>
