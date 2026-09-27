@@ -3,15 +3,18 @@ import styles from "./PokerHand.module.css";
 
 /* Bestemmer at PokerHand-komponenten skal motta en PokerHand */
 type PokerHandProps = {
-    hand: PokerHand;
-}
+  hand: PokerHand;
+};
 
-/* Viser spillerens nåværende pokerhånd */
+/**
+ * Viser spillerens nåværende pokerhånd
+ * @param hand Pokerhånden som skal vises
+ */
 export default function PokerHand({ hand }: PokerHandProps) {
-    return (
-        <div className={styles.pokerHand}>
-            <p className={styles.title}>Nåværende hånd</p>
-            <p className={styles.hand}>{hand}</p>
-        </div>
-    )
+  return (
+    <div className={styles.pokerHand}>
+      <p className={styles.title}>Nåværende hånd</p>
+      <p className={styles.hand}>{hand}</p>
+    </div>
+  );
 }

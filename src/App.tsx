@@ -1,19 +1,19 @@
-import './App.css'
-import { Link } from 'react-router'
+import "./App.css";
+import { Link } from "react-router";
 
+/**
+ * Viser startsiden til Video Poker
+ */
 function App() {
-
   return (
-
     <main className="start-page">
       <h1>Video Poker</h1>
 
       <Link className="nav-button" to="/players">
-      START
+        START
       </Link>
     </main>
-
-  )
+  );
 }
 
-export default App
+export default App;

@@ -11,8 +11,8 @@ import Header from "./header/Header.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-    <Header />
-    
+      <Header />
+
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/game" element={<GamePage />} />
