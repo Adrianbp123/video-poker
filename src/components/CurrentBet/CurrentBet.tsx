@@ -17,7 +17,9 @@ export default function CurrentBet() {
             <button
                     className="bet-button"
                     onClick={decreaseBet}
-                    disabled={gamePhase !== "betting" || !currentPlayer}>
+                    disabled={gamePhase !== "betting" || !currentPlayer}
+                    aria-label="Reduser innsats"
+                    >
                 -
                 </button>
 
@@ -27,6 +29,7 @@ export default function CurrentBet() {
                     className="bet-button"
                     onClick={increaseBet}
                     disabled={gamePhase !== "betting" || !currentPlayer}
+                    aria-label="Øk innsats"
             >
                 +
                 </button>
